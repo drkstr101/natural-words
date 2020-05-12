@@ -18,13 +18,11 @@ Paragraph:
 ;
 
 Text:
-	elements+=WordLiteral+
+	words+=WordLiteral+
 ;
 
 // Text Literals
 ////
-
-
 
 PlainText returns ecore::EString:
 	WordLiteral+
