@@ -4,27 +4,34 @@
 package org.agileware.natural.words.tests
 
 import com.google.inject.Inject
-import org.agileware.natural.words.words.Model
+import org.agileware.natural.words.tracer.WordsTracer
+import org.agileware.natural.words.words.WordsModel
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
+
+import static org.hamcrest.CoreMatchers.*
+import static org.hamcrest.MatcherAssert.*
 
 @ExtendWith(InjectionExtension)
 @InjectWith(WordsInjectorProvider)
 class WordsParsingTest {
 	@Inject
-	ParseHelper<Model> parseHelper
+	ParseHelper<WordsModel> parseHelper
+	
+	@Inject
+	extension WordsTracer
 	
 	@Test
 	def void loadModel() {
-		val result = parseHelper.parse('''
-			Hello Xtext!
+		val model = parseHelper.parse('''
+			Hello Xtext
 		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+		assertThat(model, notNullValue())
+		model.trace()
+		
+		assertThat(model.eResource.errors, equalTo(#[]))
 	}
 }
