@@ -6,11 +6,15 @@
     complianceLevel="8.0" copyrightFields="false" runtimeVersion="2.20">
   <genPackages prefix="Words" basePackage="org.agileware.natural.words" disposableProviderFactory="true"
       fileExtensions="words" ecorePackage="Words.ecore#/">
-    <genClasses ecoreClass="Words.ecore#//Model">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Model/greetings"/>
+    <genClasses ecoreClass="Words.ecore#//WordsModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//WordsModel/elements"/>
     </genClasses>
-    <genClasses ecoreClass="Words.ecore#//Greeting">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//Greeting/name"/>
+    <genClasses ecoreClass="Words.ecore#//Paragraph">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//Paragraph/first"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/text"/>
+    </genClasses>
+    <genClasses ecoreClass="Words.ecore#//Text">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//Text/elements"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
