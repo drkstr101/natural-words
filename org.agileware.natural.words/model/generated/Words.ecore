@@ -3,15 +3,15 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="words" nsURI="http://www.agileware.org/natural/words/Words"
     nsPrefix="words">
   <eClassifiers xsi:type="ecore:EClass" name="WordsModel">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
-        eType="#//Paragraph" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sections" upperBound="-1"
+        eType="#//Section" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Paragraph">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="first" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Section"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Paragraph" eSuperTypes="#//Section">
     <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Text">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="words" unique="false" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -25,9 +25,9 @@ class WordsParsingTest {
 	extension WordsTracer
 	
 	@Test
-	def void loadModel() {
+	def void helloWorld() {
 		val model = parseHelper.parse('''
-			Hello Xtext
+			Hello Words
 		''')
 		assertThat(model, notNullValue())
 		model.trace()

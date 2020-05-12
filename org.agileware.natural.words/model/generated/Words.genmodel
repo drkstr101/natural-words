@@ -7,14 +7,14 @@
   <genPackages prefix="Words" basePackage="org.agileware.natural.words" disposableProviderFactory="true"
       fileExtensions="words" ecorePackage="Words.ecore#/">
     <genClasses ecoreClass="Words.ecore#//WordsModel">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//WordsModel/elements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//WordsModel/sections"/>
     </genClasses>
+    <genClasses ecoreClass="Words.ecore#//Section"/>
     <genClasses ecoreClass="Words.ecore#//Paragraph">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//Paragraph/first"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/text"/>
     </genClasses>
     <genClasses ecoreClass="Words.ecore#//Text">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//Text/words"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//Text/content"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

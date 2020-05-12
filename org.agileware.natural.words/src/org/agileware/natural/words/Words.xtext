@@ -8,32 +8,26 @@ generate words "http://www.agileware.org/natural/words/Words"
 ////
 
 WordsModel:
-	elements+=Paragraph*
+	sections+=Section*
 ;
 
-Paragraph:
-	first=StartTextLiteral
+Section: Paragraph;
+
+Paragraph: {Paragraph}
 	text=Text?
-	LINE_BREAK
+	NL
 ;
 
 Text:
-	words+=WordLiteral+
+	content+=WordLiteral+
 ;
 
 // Text Literals
 ////
 
-PlainText returns ecore::EString:
-	WordLiteral+
-;
+WordLiteral: WORD | StyledText;
 
-StartTextLiteral: WordLiteral;
-
-WordLiteral: WORD
-	| NUMBER
-	| STRING
-;
+StyledText: NUMBER | STRING;
 
 
 // Common Terminals
@@ -43,19 +37,19 @@ terminal fragment WORD_FRAGMENT: ALPHA_NUM (ALPHA_NUM | '-' | '_')*;
 terminal fragment ALPHA_NUM: (LETTER | DIGIT);
 terminal fragment LETTER: ('a'..'z'|'A'..'Z');
 terminal fragment DIGIT: ('0'..'9');
-terminal fragment NL: ('\r'? '\n');
+terminal fragment NEW_LINE: ('\r'? '\n');
 
 terminal NUMBER returns ecore::EDouble:
 	'-'? (DIGIT)+ ('.' (DIGIT)+)?;
 	
-terminal WORD: WORD_FRAGMENT;
-
-terminal STRING:
-		'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' |
-		"'" ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|"'") )* "'"
+terminal STRING returns ecore::EString:
+		'"' ( '\\' . | !('\\'|'"') )* '"' |
+		"'" ( '\\' . | !('\\'|"'") )* "'"
 ;
 
-terminal LINE_BREAK: NL+ (' ' |' \t')*;
+terminal WORD: WORD_FRAGMENT;
+
+terminal NL: NEW_LINE+ (' ' |' \t')*;
 terminal WS: (' ' |' \t')+;
 
 terminal ANY: .;
