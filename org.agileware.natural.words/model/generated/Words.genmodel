@@ -14,9 +14,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/text"/>
     </genClasses>
     <genClasses ecoreClass="Words.ecore#//Text">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Text/elements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Text/first"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Text/rest"/>
     </genClasses>
     <genClasses ecoreClass="Words.ecore#//Literal"/>
+    <genClasses ecoreClass="Words.ecore#//StartTextLiteral"/>
     <genClasses ecoreClass="Words.ecore#//StyledText"/>
     <genClasses ecoreClass="Words.ecore#//SymbolicWord">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//SymbolicWord/value"/>
