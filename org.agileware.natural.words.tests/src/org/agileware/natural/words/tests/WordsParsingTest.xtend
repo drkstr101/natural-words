@@ -20,18 +20,20 @@ import static org.hamcrest.MatcherAssert.*
 class WordsParsingTest {
 	@Inject
 	ParseHelper<WordsModel> parseHelper
-	
+
 	@Inject
 	extension WordsTracer
-	
+
 	@Test
-	def void helloWorld() {
+	def void simpleParagraphs() {
 		val model = parseHelper.parse('''
-			Hello Words
+			The quick brown fox
+			Jumps over the lazy moon
+			
+			But only on days that end in Y
 		''')
-		assertThat(model, notNullValue())
+
 		model.trace()
-		
 		assertThat(model.eResource.errors, equalTo(#[]))
 	}
 }
