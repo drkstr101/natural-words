@@ -11,8 +11,8 @@ class WordsTracer {
 			return
 		}
 		
-		println("*** MODEL ERRORS ***")
 		if (!model.eResource.errors.isEmpty()) {
+			println("*** MODEL ERRORS ***")
 			for (e : model.eResource.errors) {
 				println(e)
 			}
