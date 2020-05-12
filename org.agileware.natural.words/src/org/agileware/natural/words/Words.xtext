@@ -4,70 +4,72 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 generate words "http://www.agileware.org/natural/words/Words"
 
-// TODO: A word literal is also a valid Paragraph which is also a valid Section.
-//       need to find a way to differentiate
-//Decision can match input such as "RULE_L_ANGLE_BRACKET RULE_SIMPLE_WORD RULE_R_ANGLE_BRACKET" using multiple alternatives: 1, 2
-//Decision can match input such as "RULE_SIMPLE_WORD" using multiple alternatives: 1, 2
-//Decision can match input such as "RULE_STR" using multiple alternatives: 1, 2
-//Decision can match input such as "RULE_NUM" using multiple alternatives: 1, 2
-//Decision can match input such as "'!'..'~'" using multiple alternatives: 1, 2
-//Decision can match input such as "RULE_L_ANGLE_BRACKET RULE_SIMPLE_WORD RULE_R_ANGLE_BRACKET" using multiple alternatives: 1, 2
-//Decision can match input such as "RULE_SIMPLE_WORD" using multiple alternatives: 1, 2
-//Decision can match input such as "RULE_STR" using multiple alternatives: 1, 2
-//Decision can match input such as "RULE_NUM" using multiple alternatives: 1, 2
-//Decision can match input such as "'!'..'~'" using multiple alternatives: 1, 2
-
 // Text Structure
 ////
 
+// WordsModel consists of a group of semantic Section* elements, 
+// which can be a simple Paragraph, or a NamedSection with a 
+// Keyword: Title combination, followed by one or more Paragraph
 WordsModel:
-	sections+=Section*
+	sections+=Paragraph+
 ;
 
-// TODO: Section should have subtype NamedSection
-Section: Paragraph;
-
-Paragraph: {Paragraph}
-	text=Text
+// Paragraph consists of one or more TextLine elements 
+Paragraph:
+	lines += TextLine
 ;
 
-// We must anchor to a starting position, so text is separated into first/rest... elements
-Text:
-	first=StartTextLiteral
-	rest+=Literal*
+// TextLine is a WordGroup up to and including a single NL. The WordGroup before 
+// the closing NL is assigned to the text element
+// TODO: this is just a temporary workaround until better Sentence matching can be done
+TextLine: 
+	text=WordGroup
+	NL
 ;
 
 // Word Literals
 ////
 
-Literal: StyledText 
-	| {Literal} Word
-	| {Literal} PUNCTUATION 
-;
+// Literal is any valid Word, Punctuation, or WordGroup*
+//Literal: StyledText 
+//	| {Literal} Word
+//	| {Literal} PUNCTUATION 
+//;
 
-StartTextLiteral: StyledText
-	| {StartTextLiteral} Word
-	| {StartTextLiteral} PUNCTUATION
-;
+// StartTextLiteral denotes the starting Literal of a Paragraph
+//StartTextLiteral: StyledText
+//	| {StartTextLiteral} Word
+//	| {StartTextLiteral} PUNCTUATION
+//;
 
-StyledText: SymbolicWord
-	| {StyledText} Number 
-	| {StyledText} String 
-;
+// StyledText is a Word or WordGroup accompanied by surrounding 
+// Punctuation to make it a single semantic element
+//StyledText: SymbolicWord
+//	| {StyledText} Number 
+//	| {StyledText} String 
+//;
 
+// SymbolicWord is StyledText with a single Word literal 
+// that has semantic meaning in the Paragraph
 // TODO: provide additional symbolic keyword matching options
-SymbolicWord: 
-	L_ANGLE_BRACKET
-	value=Word
-	R_ANGLE_BRACKET
-;
+//SymbolicWord: 
+//	L_ANGLE_BRACKET
+//	value=Word
+//	R_ANGLE_BRACKET
+//;
 
+// Word is a single ALPHA_NUM fragment followed by 0 or more ALPHA_NUM fragments
 Word: SIMPLE_WORD;
 
-Number: NUM;
+// WordGroup consists of one or more SIMPLE_WORD fragments
+WordGroup: SIMPLE_WORD SIMPLE_WORD*;
 
+// Number is any valid NUM text
+//Number: NUM;
+
+// String is any valid STR text, with a containing WordGroup* and surrounding QUOTE* elements
 // TODO: should provide access to string contents and surrounding quote type
-String: STR;
+//String: STR;
 
 
 // Common Terminals
@@ -80,43 +82,68 @@ terminal fragment DIGIT: ('0'..'9');
 terminal fragment NEW_LINE: ('\r'? '\n');
 terminal fragment SPACE: (' ' | '\t');
 
-terminal NUM returns ecore::EDouble:
-	'-'? (DIGIT)+ ('.' (DIGIT)+)?;
+//terminal NUM returns ecore::EDouble:
+//	'-'? (DIGIT)+ ('.' (DIGIT)+)?
+//;
 	
-terminal STR returns ecore::EString:
-		'"' ( '\\' . | !('\\'|'"') )* '"' |
-		"'" ( '\\' . | !('\\'|"'") )* "'"
-;
+//terminal STR returns ecore::EString:
+//		'"' ( '\\' . | !('\\'|'"') )* '"' |
+//		"'" ( '\\' . | !('\\'|"'") )* "'"
+//;
+
+//terminal LOT:
+//	(
+//		(SIMPLE_WORD)
+//		(SIMPLE_WORD)* 
+//		NL
+//	)+
+//;
 
 terminal SIMPLE_WORD: SIMPLE_WORD_FRAGMENT;
 
-PUNCTUATION:  '!'
-    | '-'
-    | '--'
-    | '$'
-    | '%'
-    | '&'
-    | '\''
-    | '('
-    | ')'
-    | '+'
-    | ','
-    | '.'
-    | '/'
-    | '\\'
-    | '='
-    | '?'
-    | '['
-    | ']'
-    | '^'
-    | '{'
-    | '}'
-    | '~'
-    | '...'
- ;
- 
-terminal L_ANGLE_BRACKET: '<';
-terminal R_ANGLE_BRACKET: '>';
+//QUOTATION: QUOTE
+//	| SINGLE_QUOTE
+//	| BACKTICK
+//;
+
+//PUNCTUATION:  AT
+//	  | HASH
+//    | QUOTATION
+//	  | '!'
+//    | '-'
+//    | '--'
+//    | '$'
+//    | '%'
+//    | '&'
+//    | '('
+//    | ')'
+//    | '+'
+//    | ','
+//    | '.'
+//    | '/'
+//    | '\\'
+//    | '='
+//    | '?'
+//    | '['
+//    | ']'
+//    | '^'
+//    | '{'
+//    | '}'
+//    | '~'
+//    | '...'
+//    | ANY
+//;
+
+//terminal AT: '@';
+//terminal STAR: '*';
+//terminal QUOTE: '"';
+//terminal SINGLE_QUOTE: '\'';
+//terminal BACKTICK: '`';
+//terminal L_ANGLE_BRACKET: '<';
+//terminal R_ANGLE_BRACKET: '>';
+//terminal HASH: '#';
 
 terminal NL: NEW_LINE+ SPACE*;
 terminal WS: SPACE+;
+
+terminal ANY: .;

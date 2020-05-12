@@ -1,9 +1,8 @@
 package org.agileware.natural.words.tracer
 
-import org.agileware.natural.words.words.WordsModel
 import org.agileware.natural.words.words.Paragraph
-import org.agileware.natural.words.words.Text
-import org.agileware.natural.words.words.Section
+import org.agileware.natural.words.words.TextLine
+import org.agileware.natural.words.words.WordsModel
 
 class WordsTracer {
 	def dispatch void trace(WordsModel model) {
@@ -18,23 +17,20 @@ class WordsTracer {
 				println(e)
 			}
 		}
-
-		println(model)
-		for (s : model.sections) {
+		
+		for(s : model.sections) {
 			s.trace()
 		}
 	}
 
-	def dispatch void trace(Section model) {
-		println(model)
-	}
-
 	def dispatch void trace(Paragraph model) {
 		println(model)
-		model.text.trace()
+		for(l : model.lines) {
+			l.trace()
+		}
 	}
 
-	def dispatch void trace(Text model) {
+	def dispatch void trace(TextLine model) {
 		println(model)
 	}
 }

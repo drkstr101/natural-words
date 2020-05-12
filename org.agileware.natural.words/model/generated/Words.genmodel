@@ -9,19 +9,11 @@
     <genClasses ecoreClass="Words.ecore#//WordsModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//WordsModel/sections"/>
     </genClasses>
-    <genClasses ecoreClass="Words.ecore#//Section"/>
     <genClasses ecoreClass="Words.ecore#//Paragraph">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/text"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/lines"/>
     </genClasses>
-    <genClasses ecoreClass="Words.ecore#//Text">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Text/first"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Text/rest"/>
-    </genClasses>
-    <genClasses ecoreClass="Words.ecore#//Literal"/>
-    <genClasses ecoreClass="Words.ecore#//StartTextLiteral"/>
-    <genClasses ecoreClass="Words.ecore#//StyledText"/>
-    <genClasses ecoreClass="Words.ecore#//SymbolicWord">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//SymbolicWord/value"/>
+    <genClasses ecoreClass="Words.ecore#//TextLine">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//TextLine/text"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
