@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>natural-words</name>
+	<comment></comment>
+	<projects>
+		<project>org.agileware.natural.words</project>
+		<project>org.agileware.natural.words.feature</project>
+		<project>org.agileware.natural.words.ide</project>
+		<project>org.agileware.natural.words.tests</project>
+		<project>org.agileware.natural.words.ui</project>
+		<project>org.agileware.natural.words.ui.tests</project>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+</projectDescription>
