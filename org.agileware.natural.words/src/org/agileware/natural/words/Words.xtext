@@ -7,24 +7,34 @@ generate words "http://www.agileware.org/natural/words/Words"
 // Text Structure
 ////
 
-// WordsModel consists of a group of semantic Section* elements, 
-// which can be a simple Paragraph, or a NamedSection with a 
-// Keyword: Title combination, followed by one or more Paragraph
+// WordsModel consists of a single Document which may possibly be null
+// when no readable content can be found 
 WordsModel:
-	sections+=Paragraph+
+	document=Document?
 ;
 
-// Paragraph consists of one or more TextLine elements 
-Paragraph:
-	lines += TextLine
+// Document consists of a group of semantic Section elements, 
+// which can be a simple Paragraph, or a NamedSection*
+Document:
+	sections+=Section
 ;
 
-// TextLine is a WordGroup up to and including a single NL. The WordGroup before 
-// the closing NL is assigned to the text element
-// TODO: this is just a temporary workaround until better Sentence matching can be done
-TextLine: 
-	text=WordGroup
-	NL
+// Section is a (NamedSection* | Paragraph)
+Section: Paragraph;
+
+// Paragraph contains a single Text element
+Paragraph: {Paragraph}
+	text=Text
+;
+
+// Text is an AST element which has PlainText content
+Text: {Text}
+	content=PlainText
+;
+
+// PlainText is an EString containing multi-line text content
+PlainText returns ecore::EString:
+	((SIMPLE_WORD) (SIMPLE_WORD)* NL)+
 ;
 
 // Word Literals
@@ -59,10 +69,10 @@ TextLine:
 //;
 
 // Word is a single ALPHA_NUM fragment followed by 0 or more ALPHA_NUM fragments
-Word: SIMPLE_WORD;
+//Word: SIMPLE_WORD;
 
 // WordGroup consists of one or more SIMPLE_WORD fragments
-WordGroup: SIMPLE_WORD SIMPLE_WORD*;
+//WordGroup: SIMPLE_WORD SIMPLE_WORD*;
 
 // Number is any valid NUM text
 //Number: NUM;
@@ -146,4 +156,4 @@ terminal SIMPLE_WORD: SIMPLE_WORD_FRAGMENT;
 terminal NL: NEW_LINE+ SPACE*;
 terminal WS: SPACE+;
 
-terminal ANY: .;
+//terminal ANY: .;

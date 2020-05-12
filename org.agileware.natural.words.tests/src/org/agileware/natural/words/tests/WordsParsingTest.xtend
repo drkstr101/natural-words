@@ -12,7 +12,7 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
 
-import static org.hamcrest.Matchers.*
+import static org.hamcrest.CoreMatchers.*
 import static org.hamcrest.MatcherAssert.*
 
 @ExtendWith(InjectionExtension)
@@ -26,8 +26,8 @@ class WordsParsingTest {
 	extension WordsTracer
 
 	@Test
-	def void singleTextLine() {
-		println("*** singleTextLine ***")
+	def void singleLineParagraph() {
+		println("*** singleLineParagraph ***")
 
 		val model = parseHelper.parse('''
 			The quick brown fox
@@ -35,8 +35,33 @@ class WordsParsingTest {
 
 		model.trace()
 		assertThat(model.eResource.errors, equalTo(#[]))
-		assertThat(model.sections.size(), equalTo(1))
-		assertThat(model.sections.get(0).lines.size(), equalTo(1))
+		
+		val doc = model.document
+		assertThat(doc, notNullValue())
+		
+		val sections = doc.sections
+		assertThat(sections.size(), equalTo(1))
+		//assertThat(model.sections.get(0).lines.size(), equalTo(1))
+	}
+
+	@Test
+	def void multiLineParagraph() {
+		println("*** singleLineParagraph ***")
+
+		val model = parseHelper.parse('''
+			The quick brown fox
+			Jumps over the lazy moon
+		''')
+
+		model.trace()
+		assertThat(model.eResource.errors, equalTo(#[]))
+		
+		val doc = model.document
+		assertThat(doc, notNullValue())
+		
+		val sections = doc.sections
+		assertThat(sections.size(), equalTo(1))
+//		assertThat(model.sections.get(0).lines.size(), equalTo(2))
 	}
 
 	@Test
@@ -52,6 +77,11 @@ class WordsParsingTest {
 
 		model.trace()
 		assertThat(model.eResource.errors, equalTo(#[]))
-		assertThat(model.sections.size(), equalTo(1))
+		
+		val doc = model.document
+		assertThat(doc, notNullValue())
+		
+		val sections = doc.sections
+		assertThat(sections.size(), equalTo(2))
 	}
 }

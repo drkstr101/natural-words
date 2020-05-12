@@ -7,13 +7,17 @@
   <genPackages prefix="Words" basePackage="org.agileware.natural.words" disposableProviderFactory="true"
       fileExtensions="words" ecorePackage="Words.ecore#/">
     <genClasses ecoreClass="Words.ecore#//WordsModel">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//WordsModel/sections"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//WordsModel/document"/>
     </genClasses>
+    <genClasses ecoreClass="Words.ecore#//Document">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Document/sections"/>
+    </genClasses>
+    <genClasses ecoreClass="Words.ecore#//Section"/>
     <genClasses ecoreClass="Words.ecore#//Paragraph">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/lines"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/text"/>
     </genClasses>
-    <genClasses ecoreClass="Words.ecore#//TextLine">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//TextLine/text"/>
+    <genClasses ecoreClass="Words.ecore#//Text">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//Text/content"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
