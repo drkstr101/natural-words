@@ -1,7 +1,10 @@
 package org.agileware.natural.words.tracer
 
 import org.agileware.natural.words.words.Document
+import org.agileware.natural.words.words.EndLiteral
 import org.agileware.natural.words.words.Paragraph
+import org.agileware.natural.words.words.StartLiteral
+import org.agileware.natural.words.words.TextLiteral
 import org.agileware.natural.words.words.WordsModel
 
 class WordsTracer {
@@ -30,6 +33,22 @@ class WordsTracer {
 	}
 
 	def dispatch void trace(Paragraph model) {
+		println(model)
+		
+		model.start.trace()
+		model.rest.trace()
+		model.end.trace()
+	}
+
+	def dispatch void trace(StartLiteral model) {
+		println(model)
+	}
+
+	def dispatch void trace(EndLiteral model) {
+		println(model)
+	}
+
+	def dispatch void trace(TextLiteral model) {
 		println(model)
 	}
 }

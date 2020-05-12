@@ -31,6 +31,7 @@ class WordsParsingTest {
 
 		val model = parseHelper.parse('''
 			The quick brown fox
+			
 		''')
 
 		model.trace()
@@ -51,6 +52,7 @@ class WordsParsingTest {
 		val model = parseHelper.parse('''
 			The quick brown fox
 			Jumps over the lazy moon
+			
 		''')
 
 		model.trace()
@@ -73,6 +75,7 @@ class WordsParsingTest {
 			Jumps over the lazy moon
 			
 			But only on days that end in Y
+			
 		''')
 
 		model.trace()

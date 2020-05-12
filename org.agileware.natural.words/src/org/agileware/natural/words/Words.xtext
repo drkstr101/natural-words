@@ -22,14 +22,28 @@ Document:
 // Section is a (NamedSection* | Paragraph)
 Section: Paragraph;
 
-// Paragraph contains a single Text element
+// Paragraph contains a single StartLiteral, a single EndLiteral, 
+// and a single TextLiteral, which may contain an empty string if
+// no content can be read between start and end
 Paragraph: {Paragraph}
-	text=Text
+	start=StartLiteral
+	rest=TextLiteral
+	end=EndLiteral
 ;
+
+StartLiteral: {StartLiteral}
+	SIMPLE_WORD
+;
+
+EndLiteral: {EndLiteral}
+	NL
+;
+
+TextLiteral: Text;
 
 // Text is an AST element which has PlainText content
 Text: {Text}
-	content=PlainText
+	value=PlainText
 ;
 
 // PlainText is an EString containing multi-line text content
