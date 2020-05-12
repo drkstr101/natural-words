@@ -26,5 +26,6 @@ Export-Package: org.agileware.natural.words.words.impl,
  org.agileware.natural.words.words,
  org.agileware.natural.words.serializer,
  org.agileware.natural.words.services,
+ org.agileware.natural.words.tracer,
  org.agileware.natural.words.validation
 Import-Package: org.apache.log4j

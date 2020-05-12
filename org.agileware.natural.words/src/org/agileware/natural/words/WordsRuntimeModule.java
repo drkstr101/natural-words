@@ -3,9 +3,13 @@
  */
 package org.agileware.natural.words;
 
+import org.agileware.natural.words.tracer.WordsTracer;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class WordsRuntimeModule extends AbstractWordsRuntimeModule {
+	public Class<? extends WordsTracer> bindWordsTracer() {
+		return WordsTracer.class;
+	}
 }
