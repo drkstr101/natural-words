@@ -8,5 +8,23 @@ Bundle-SymbolicName: org.agileware.natural.words; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
  org.eclipse.xtext.xbase,
- org.eclipse.equinox.common;bundle-version="3.5.0"
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.agileware.natural.words.words.impl,
+ org.agileware.natural.words.parser.antlr,
+ org.agileware.natural.words.formatting2,
+ org.agileware.natural.words.parser.antlr.internal,
+ org.agileware.natural.words.generator,
+ org.agileware.natural.words.words.util,
+ org.agileware.natural.words.scoping,
+ org.agileware.natural.words,
+ org.agileware.natural.words.words,
+ org.agileware.natural.words.serializer,
+ org.agileware.natural.words.services,
+ org.agileware.natural.words.validation
+Import-Package: org.apache.log4j

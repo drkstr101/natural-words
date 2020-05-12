@@ -3,6 +3,7 @@
 */target
 */xtend-gen
 */src-gen
+*/test-bin
 *.xml_gen
 .metadata
 eclipse-*
