@@ -18,6 +18,7 @@ import static org.hamcrest.MatcherAssert.*
 @ExtendWith(InjectionExtension)
 @InjectWith(WordsInjectorProvider)
 class WordsParsingTest {
+
 	@Inject
 	ParseHelper<WordsModel> parseHelper
 
@@ -25,7 +26,23 @@ class WordsParsingTest {
 	extension WordsTracer
 
 	@Test
-	def void simpleParagraphs() {
+	def void singleTextLine() {
+		println("*** singleTextLine ***")
+
+		val model = parseHelper.parse('''
+			The quick brown fox
+		''')
+
+		model.trace()
+		assertThat(model.eResource.errors, equalTo(#[]))
+		assertThat(model.sections.size(), equalTo(1))
+		assertThat(model.sections.get(0).lines.size(), equalTo(1))
+	}
+
+	@Test
+	def void multipleParagraphs() {
+		println("*** multipleParagraphs ***")
+
 		val model = parseHelper.parse('''
 			The quick brown fox
 			Jumps over the lazy moon
@@ -35,5 +52,6 @@ class WordsParsingTest {
 
 		model.trace()
 		assertThat(model.eResource.errors, equalTo(#[]))
+		assertThat(model.sections.size(), equalTo(1))
 	}
 }
