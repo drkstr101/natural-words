@@ -11,47 +11,93 @@ WordsModel:
 	sections+=Section*
 ;
 
+// TODO: Section should have subtype NamedSection
 Section: Paragraph;
 
 Paragraph: {Paragraph}
-	text=Text?
-	NL
+	text=Text
 ;
 
 Text:
-	content+=WordLiteral+
+	elements+=Literal+
 ;
 
-// Text Literals
+// Word Literals
 ////
 
-WordLiteral: WORD | StyledText;
+Literal: StyledText 
+	| {Literal} Word
+	| {Literal} PUNCTUATION 
+	| {Literal} NL
+;
 
-StyledText: NUMBER | STRING;
+StyledText: SymbolicWord
+	| {StyledText} Number 
+	| {StyledText} String 
+;
+
+// TODO: provide additional symbolic keyword matching options
+SymbolicWord: 
+	L_ANGLE_BRACKET
+	value=Word
+	R_ANGLE_BRACKET
+;
+
+Word: SIMPLE_WORD;
+
+Number: NUM;
+
+// TODO: should provide access to string contents and surrounding quote type
+String: STR;
 
 
 // Common Terminals
 ////
 
-terminal fragment WORD_FRAGMENT: ALPHA_NUM (ALPHA_NUM | '-' | '_')*;
+terminal fragment SIMPLE_WORD_FRAGMENT: ALPHA_NUM (ALPHA_NUM | '-' | '_')*;
 terminal fragment ALPHA_NUM: (LETTER | DIGIT);
 terminal fragment LETTER: ('a'..'z'|'A'..'Z');
 terminal fragment DIGIT: ('0'..'9');
 terminal fragment NEW_LINE: ('\r'? '\n');
+terminal fragment SPACE: (' ' | '\t');
 
-terminal NUMBER returns ecore::EDouble:
+terminal NUM returns ecore::EDouble:
 	'-'? (DIGIT)+ ('.' (DIGIT)+)?;
 	
-terminal STRING returns ecore::EString:
+terminal STR returns ecore::EString:
 		'"' ( '\\' . | !('\\'|'"') )* '"' |
 		"'" ( '\\' . | !('\\'|"'") )* "'"
 ;
 
-terminal WORD: WORD_FRAGMENT;
+terminal SIMPLE_WORD: SIMPLE_WORD_FRAGMENT;
 
-terminal NL: NEW_LINE+ (' ' |' \t')*;
-terminal WS: (' ' |' \t')+;
+PUNCTUATION:  '!'
+    | '-'
+    | '--'
+    | '$'
+    | '%'
+    | '&'
+    | '\''
+    | '('
+    | ')'
+    | '+'
+    | ','
+    | '.'
+    | '/'
+    | '\\'
+    | '='
+    | '?'
+    | '['
+    | ']'
+    | '^'
+    | '{'
+    | '}'
+    | '~'
+    | '...'
+ ;
+ 
+terminal L_ANGLE_BRACKET: '<';
+terminal R_ANGLE_BRACKET: '>';
 
-terminal ANY: .;
-
-
+terminal NL: NEW_LINE+ SPACE*;
+terminal WS: SPACE+;
