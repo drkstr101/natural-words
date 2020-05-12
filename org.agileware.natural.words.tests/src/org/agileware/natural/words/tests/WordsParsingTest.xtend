@@ -12,7 +12,7 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
 
-import static org.hamcrest.CoreMatchers.*
+import static org.hamcrest.Matchers.*
 import static org.hamcrest.MatcherAssert.*
 
 @ExtendWith(InjectionExtension)
