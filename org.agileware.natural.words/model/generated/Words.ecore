@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="words" nsURI="http://www.agileware.org/natural/words/Words"
+    nsPrefix="words">
+  <eClassifiers xsi:type="ecore:EClass" name="WordsModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="document" eType="#//Document"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Document">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sections" upperBound="-1"
+        eType="#//Section" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Section"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Paragraph" eSuperTypes="#//Section">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="start" eType="#//StartLiteral"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rest" eType="#//TextLiteral"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="end" eType="#//EndLiteral"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StartLiteral"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EndLiteral"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TextLiteral"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Text" eSuperTypes="#//TextLiteral">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>
