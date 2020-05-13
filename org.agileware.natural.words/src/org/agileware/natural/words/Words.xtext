@@ -121,23 +121,34 @@ terminal WS: (SPACE | '\t');
 // Unicode Ranges
 ////
 
+terminal fragment SPACE: ASCII_SPACE;
+
+terminal fragment DIGIT: ASCII_DIGIT;
+
+terminal fragment LETTER: LATIN_ALPHABET;
+
 // TODO: add more charachter ranges than basic Latin
 
+terminal fragment BASIC_LATIN: LATIN_ALPHABET
+	| ASCII_SPACE
+	| ASCII_DIGIT
+	| ASCII_PUNCTUATION
+;
+
 // ASCII space 
-terminal fragment SPACE: '\u0020';
+terminal fragment ASCII_SPACE: '\u0020';
 
 // ASCII digits 
-terminal fragment DIGIT: ('\u0030'..'\u0039');
+terminal fragment ASCII_DIGIT: ('\u0030'..'\u0039');
 
 // ASCII punctuation and symbols 
-terminal fragment PUNCTUATION: SPACE 
-	| ('\u0021'..'\u002F')
+terminal fragment ASCII_PUNCTUATION: ('\u0021'..'\u002F')
 	| ('\u003A'..'\u0040')
 	| ('\u005B'..'\u0060')
 	| ('\u007B'..'\u007E')
 ;
 
 // Latin alphabet 
-terminal fragment LETTER: ('\u0041'..'\u005A')
+terminal fragment LATIN_ALPHABET: ('\u0041'..'\u005A')
 	| ('\u0061'..'\u007A')
 ;
