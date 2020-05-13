@@ -38,7 +38,7 @@ Document:
 Section: Paragraph;
 
 /**
- * A Paragraph is any block of text that begins with StartLiteral, a single TextLiteral,
+ * A Paragraph is any block of text that begins with StartLiteral, and a single TextLiteral,
  * which may contain empty text, and is terminated by two NL chars at the end of the
  * text block.
  */
@@ -47,6 +47,9 @@ Paragraph: {Paragraph}
 	rest=TextLiteral
 	NL
 ;
+
+// Text Literals
+////
 
 /**
  * Any valid terminal that specifies the start of a paragraph
@@ -75,7 +78,7 @@ Text: {Text}
  * value of a block of text content 
  */
 TextValue: EmptyTextValue
-	| WordGroupTextValue
+	| BlockTextValue
 ;
 
 /**
@@ -90,64 +93,13 @@ EmptyTextValue returns ecore::EString:
  * Multi-line group of word literals
  * @returns A string without any whitespace at the start or end of the string
  */
-WordGroupTextValue returns ecore::EString:
-	((SIMPLE_WORD) (SIMPLE_WORD)* NL)+
+BlockTextValue returns ecore::EString:
+	(SIMPLE_WORD+ NL)+
 ;
-
-// Word Literals
-////
-
-// Literal is any valid Word, Punctuation, or WordGroup*
-//Literal: StyledText 
-//	| {Literal} Word
-//	| {Literal} PUNCTUATION 
-//;
-
-// StartTextLiteral denotes the starting Literal of a Paragraph
-//StartTextLiteral: StyledText
-//	| {StartTextLiteral} Word
-//	| {StartTextLiteral} PUNCTUATION
-//;
-
-// StyledText is a Word or WordGroup accompanied by surrounding 
-// Punctuation to make it a single semantic element
-//StyledText: SymbolicWord
-//	| {StyledText} Number 
-//	| {StyledText} String 
-//;
-
-// SymbolicWord is StyledText with a single Word literal 
-// that has semantic meaning in the Paragraph
-// TODO: provide additional symbolic keyword matching options
-//SymbolicWord: 
-//	L_ANGLE_BRACKET
-//	value=Word
-//	R_ANGLE_BRACKET
-//;
-
-// Word is a single ALPHA_NUM fragment followed by 0 or more ALPHA_NUM fragments
-//Word: SIMPLE_WORD;
-
-// WordGroup consists of one or more SIMPLE_WORD fragments
-//WordGroup: SIMPLE_WORD SIMPLE_WORD*;
-
-// Number is any valid NUM text
-//Number: NUM;
-
-// String is any valid STR text, with a containing WordGroup* and surrounding QUOTE* elements
-// TODO: should provide access to string contents and surrounding quote type
-//String: STR;
 
 
 // Common Terminals
 ////
-
-terminal fragment SIMPLE_WORD_FRAGMENT: ALPHA_NUM (ALPHA_NUM | '-' | '_')*;
-terminal fragment ALPHA_NUM: (LETTER | DIGIT);
-terminal fragment LETTER: ('a'..'z'|'A'..'Z');
-terminal fragment DIGIT: ('0'..'9');
-terminal fragment NEW_LINE: ('\r'? '\n');
-terminal fragment SPACE: (' ' | '\t');
 
 //terminal NUM returns ecore::EDouble:
 //	'-'? (DIGIT)+ ('.' (DIGIT)+)?
@@ -158,59 +110,34 @@ terminal fragment SPACE: (' ' | '\t');
 //		"'" ( '\\' . | !('\\'|"'") )* "'"
 //;
 
-//terminal LOT:
-//	(
-//		(SIMPLE_WORD)
-//		(SIMPLE_WORD)* 
-//		NL
-//	)+
-//;
+terminal SIMPLE_WORD: 
+	(DIGIT | LETTER) 
+	(DIGIT | LETTER | '-' | '_' | '.')*
+;
 
-terminal SIMPLE_WORD: SIMPLE_WORD_FRAGMENT;
+terminal NL: ('\r'? '\n') WS*;
+terminal WS: (SPACE | '\t');
 
-//QUOTATION: QUOTE
-//	| SINGLE_QUOTE
-//	| BACKTICK
-//;
+// Unicode Ranges
+////
 
-//PUNCTUATION:  AT
-//	  | HASH
-//    | QUOTATION
-//	  | '!'
-//    | '-'
-//    | '--'
-//    | '$'
-//    | '%'
-//    | '&'
-//    | '('
-//    | ')'
-//    | '+'
-//    | ','
-//    | '.'
-//    | '/'
-//    | '\\'
-//    | '='
-//    | '?'
-//    | '['
-//    | ']'
-//    | '^'
-//    | '{'
-//    | '}'
-//    | '~'
-//    | '...'
-//    | ANY
-//;
+// TODO: add more charachter ranges than basic Latin
 
-//terminal AT: '@';
-//terminal STAR: '*';
-//terminal QUOTE: '"';
-//terminal SINGLE_QUOTE: '\'';
-//terminal BACKTICK: '`';
-//terminal L_ANGLE_BRACKET: '<';
-//terminal R_ANGLE_BRACKET: '>';
-//terminal HASH: '#';
+// ASCII space 
+terminal fragment SPACE: '\u0020';
 
-terminal NL: NEW_LINE+ SPACE*;
-terminal WS: SPACE+;
+// ASCII digits 
+terminal fragment DIGIT: ('\u0030'..'\u0039');
 
-terminal ANY: .;
+// ASCII punctuation and symbols 
+terminal fragment PUNCTUATION: SPACE 
+	| ('\u0021'..'\u002F')
+	| ('\u003A'..'\u0040')
+	| ('\u005B'..'\u0060')
+	| ('\u007B'..'\u007E')
+;
+
+// Latin alphabet 
+terminal fragment LETTER: ('\u0041'..'\u005A')
+	| ('\u0061'..'\u007A')
+;
