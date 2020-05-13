@@ -1,7 +1,6 @@
 package org.agileware.natural.words.tracer
 
 import org.agileware.natural.words.words.Document
-import org.agileware.natural.words.words.EndLiteral
 import org.agileware.natural.words.words.Paragraph
 import org.agileware.natural.words.words.StartLiteral
 import org.agileware.natural.words.words.TextLiteral
@@ -14,14 +13,14 @@ class WordsTracer {
 			println("*** PARSER FAILED ***")
 			return
 		}
-		
+
 		if (!model.eResource.errors.isEmpty()) {
 			println("*** MODEL ERRORS ***")
 			for (e : model.eResource.errors) {
 				println(e)
 			}
 		}
-		
+
 		model.document.trace()
 	}
 
@@ -34,17 +33,12 @@ class WordsTracer {
 
 	def dispatch void trace(Paragraph model) {
 		println(model)
-		
+
 		model.start.trace()
 		model.rest.trace()
-		model.end.trace()
 	}
 
 	def dispatch void trace(StartLiteral model) {
-		println(model)
-	}
-
-	def dispatch void trace(EndLiteral model) {
 		println(model)
 	}
 

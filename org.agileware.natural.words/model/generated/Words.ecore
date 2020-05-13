@@ -16,11 +16,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rest" eType="#//TextLiteral"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="end" eType="#//EndLiteral"
-        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StartLiteral"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EndLiteral"/>
   <eClassifiers xsi:type="ecore:EClass" name="TextLiteral"/>
   <eClassifiers xsi:type="ecore:EClass" name="Text" eSuperTypes="#//TextLiteral">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

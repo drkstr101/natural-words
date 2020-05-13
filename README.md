@@ -21,7 +21,7 @@ set being worked on is as follows.
 1. Provide some common patterns to match: 
 	* Sections with `Keyword: And a title`
 	* Blocks of *mostly* free-form multi-line text
-	* Single lines of text that start a specific word or group of words
+	* Single lines of text that start with a specific word or group of words
 	* Symbolic word(s) in text such as `<keyword>`, `"String of text"`, or `-9.8m/s`
 
 2. Define a set of semantic unicode character ranges that can be in terminals
@@ -31,4 +31,4 @@ set being worked on is as follows.
 
 This is a work in progress and subject to frequent change.
 
-![Words Model AST Diagram](org.agileware.natural.words/model/Words.model.jpg)
+![Words Model AST Diagram](org.agileware.natural.words/model/generated/Words.jpg)

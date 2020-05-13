@@ -38,12 +38,14 @@ Document:
 Section: Paragraph;
 
 /**
- * Contains a single StartLiteral, a single EndLiteral, and a single TextLiteral
+ * A Paragraph is any block of text that begins with StartLiteral, a single TextLiteral,
+ * which may contain empty text, and is terminated by two NL chars at the end of the
+ * text block.
  */
 Paragraph: {Paragraph}
 	start=StartLiteral
 	rest=TextLiteral
-	end=EndLiteral
+	NL
 ;
 
 /**
@@ -51,13 +53,6 @@ Paragraph: {Paragraph}
  */
 StartLiteral: {StartLiteral}
 	SIMPLE_WORD
-;
-
-/**
- * Any valid terminal that specifies the end of a paragraph
- */
-EndLiteral: {EndLiteral}
-	NL
 ;
 
 /**
