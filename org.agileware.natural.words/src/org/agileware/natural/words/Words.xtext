@@ -32,15 +32,17 @@ Document:
 	sections+=Paragraph+
 ;
 
-Paragraph: {Paragraph}
-    first=Word
-    rest=Text?
-    NL
+Paragraph:
+    lines+=Text+
+    ( -> NL last=NL)
 ;
 
-Word: SIMPLE_WORD;
+Text: 
+	value=WordGroup
+	NL
+;
 
-Text: (SIMPLE_WORD+ NL)+;
+WordGroup: SIMPLE_WORD+;
 
 
 // Common Terminals
