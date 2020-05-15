@@ -43,58 +43,36 @@ Section: Paragraph;
  * text block.
  */
 Paragraph: {Paragraph}
-	start=StartLiteral
-	rest=TextLiteral
-	NL
+	first=StartLiteral
+	rest+=Text*
+	( -> NL NL?)
 ;
 
 // Text Literals
 ////
 
 /**
- * Any valid terminal that specifies the start of a paragraph
+ * Any valid word or group of words that specifies the start of a paragraph
  */
 StartLiteral: {StartLiteral}
 	SIMPLE_WORD
 ;
 
 /**
- * TextLiteral is any valid block of semantic text that may is
- * contained between a StartLiteral and an EndLiteral. Each TextLiteral
- * will have an EString value containing the true string value without
- * semantic terminals or additional whitespace
- */
-TextLiteral: Text;
-
-/**
- * Contains a single TextValue as an EString
+ * Contains a single line of text as an EString, up to and including the NL
  */
 Text: {Text}
 	value=TextValue
+	NL
 ;
 
-/**
- * generic type of EString representing the true semantic 
- * value of a block of text content 
- */
-TextValue: EmptyTextValue
-	| BlockTextValue
-;
 
 /**
- * Contains 0 or more WS chars
- * @returns an empty string
- */
-EmptyTextValue returns ecore::EString:
-	WS*
-;
-
-/**
- * Multi-line group of word literals
+ * An EString containing 0 or more word literals
  * @returns A string without any whitespace at the start or end of the string
  */
-BlockTextValue returns ecore::EString:
-	(SIMPLE_WORD+ NL)+
+TextValue returns ecore::EString:
+	SIMPLE_WORD*
 ;
 
 
