@@ -4,7 +4,7 @@
     <semanticResources>generated/Words.ecore</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_ZOnBIJPrEeqFWeWuruy_Mw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_K4dnQZR1EeqkkOL9JhUyYw" name="Words" repPath="#_K4RaAJR1EeqkkOL9JhUyYw" changeId="10d29d8f-8b00-4b0f-a906-2e7e9cb7edad">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_K4dnQZR1EeqkkOL9JhUyYw" name="Words" repPath="#_K4RaAJR1EeqkkOL9JhUyYw" changeId="d0d38a55-ad9f-455a-b589-894522cff1ed">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="generated/Words.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -38,10 +38,6 @@
         <children xmi:type="notation:Node" xmi:id="_LixvlJR1EeqkkOL9JhUyYw" type="2003" element="_LiW40ZR1EeqkkOL9JhUyYw">
           <children xmi:type="notation:Node" xmi:id="_LiyWoJR1EeqkkOL9JhUyYw" type="5007"/>
           <children xmi:type="notation:Node" xmi:id="_LiyWoZR1EeqkkOL9JhUyYw" type="7004">
-            <children xmi:type="notation:Node" xmi:id="_ML1fMJbcEeqqnrnhDzCs-A" type="3010" element="_MLx00JbcEeqqnrnhDzCs-A">
-              <styles xmi:type="notation:FontStyle" xmi:id="_ML1fMZbcEeqqnrnhDzCs-A" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Location" xmi:id="_ML1fMpbcEeqqnrnhDzCs-A"/>
-            </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_LiyWopR1EeqkkOL9JhUyYw"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_LiyWo5R1EeqkkOL9JhUyYw"/>
           </children>
@@ -142,14 +138,6 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
-      <ownedElements xmi:type="diagram:DNodeListElement" uid="_MLx00JbcEeqqnrnhDzCs-A" name="last : EString" tooltipText="">
-        <target xmi:type="ecore:EAttribute" href="generated/Words.ecore#//Paragraph/last"/>
-        <semanticElements xmi:type="ecore:EAttribute" href="generated/Words.ecore#//Paragraph/last"/>
-        <ownedStyle xmi:type="diagram:BundledImage" uid="_MLyb4JbcEeqqnrnhDzCs-A" labelAlignment="LEFT">
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
-        </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
-      </ownedElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_3TqI4JSKEeqoXoiTHCQoSw" name="Document" tooltipText="" outgoingEdges="_EaYpQ5YlEeqqnrnhDzCs-A" incomingEdges="_3T0g8JSKEeqoXoiTHCQoSw" width="12" height="10">
       <target xmi:type="ecore:EClass" href="generated/Words.ecore#//Document"/>

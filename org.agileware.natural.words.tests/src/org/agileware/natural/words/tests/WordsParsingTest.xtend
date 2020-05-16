@@ -4,8 +4,7 @@
 package org.agileware.natural.words.tests
 
 import com.google.inject.Inject
-import org.agileware.natural.words.tracer.WordsTracer
-import org.agileware.natural.words.words.WordsModel
+import org.agileware.natural.words.words.Document
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
@@ -20,71 +19,34 @@ import static org.hamcrest.MatcherAssert.*
 class WordsParsingTest {
 
 	@Inject
-	ParseHelper<WordsModel> parseHelper
-
-	@Inject
-	extension WordsTracer
+	ParseHelper<Document> parseHelper
 
 	@Test
-	def void singleLineParagraph() {
-		println("*** singleLineParagraph ***")
-
+	def void happyPath() {
 		val model = parseHelper.parse('''
 			The quick brown fox
+			Jumps over the lazy dog
 			
 		''')
 
-		model.trace()
+		assertThat(model, notNullValue())
 		assertThat(model.eResource.errors, equalTo(#[]))
-		
-		val doc = model.document
-		assertThat(doc, notNullValue())
-		
-		val sections = doc.sections
-		assertThat(sections.size(), equalTo(1))
-		//assertThat(model.sections.get(0).lines.size(), equalTo(1))
+		assertThat(model.sections.size(), equalTo(1))
+		assertThat(model.sections.get(0).lines.size(), equalTo(2))
+		// It works!
 	}
 
 	@Test
-	def void multiLineParagraph() {
-		println("*** singleLineParagraph ***")
-
+	def void noTrailingNewlines() {
 		val model = parseHelper.parse('''
 			The quick brown fox
-			Jumps over the lazy moon
-			
+			Jumps over the lazy dog
 		''')
 
-		model.trace()
+		assertThat(model, notNullValue())
 		assertThat(model.eResource.errors, equalTo(#[]))
-		
-		val doc = model.document
-		assertThat(doc, notNullValue())
-		
-		val sections = doc.sections
-		assertThat(sections.size(), equalTo(1))
-//		assertThat(model.sections.get(0).lines.size(), equalTo(2))
-	}
-
-	@Test
-	def void multipleParagraphs() {
-		println("*** multipleParagraphs ***")
-
-		val model = parseHelper.parse('''
-			The quick brown fox
-			Jumps over the lazy moon
-			
-			But only on days that end in Y
-			
-		''')
-
-		model.trace()
-		assertThat(model.eResource.errors, equalTo(#[]))
-		
-		val doc = model.document
-		assertThat(doc, notNullValue())
-		
-		val sections = doc.sections
-		assertThat(sections.size(), equalTo(2))
+		// Fail ^^^ XtextSyntaxDiagnostic: null:2 mismatched input '<EOF>' expecting RULE_NL
+		assertThat(model.sections.size(), equalTo(1))
+		assertThat(model.sections.get(0).lines.size(), equalTo(2))
 	}
 }
