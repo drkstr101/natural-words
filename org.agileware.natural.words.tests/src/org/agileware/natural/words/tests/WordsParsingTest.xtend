@@ -4,7 +4,7 @@
 package org.agileware.natural.words.tests
 
 import com.google.inject.Inject
-import org.agileware.natural.words.words.Document
+import org.agileware.natural.words.words.WordsModel
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.*
 class WordsParsingTest {
 
 	@Inject
-	ParseHelper<Document> parseHelper
+	ParseHelper<WordsModel> parseHelper
 
 	@Test
 	def void happyPath() {
@@ -31,8 +31,11 @@ class WordsParsingTest {
 
 		assertThat(model, notNullValue())
 		assertThat(model.eResource.errors, equalTo(#[]))
-		assertThat(model.sections.size(), equalTo(1))
-		assertThat(model.sections.get(0).lines.size(), equalTo(2))
+		
+		val doc = model.document
+		assertThat(doc, notNullValue())
+		assertThat(doc.sections.size(), equalTo(1))
+		assertThat(doc.sections.get(0).lines.size(), equalTo(2))
 		// It works!
 	}
 
@@ -46,7 +49,10 @@ class WordsParsingTest {
 		assertThat(model, notNullValue())
 		assertThat(model.eResource.errors, equalTo(#[]))
 		// Fail ^^^ XtextSyntaxDiagnostic: null:2 mismatched input '<EOF>' expecting RULE_NL
-		assertThat(model.sections.size(), equalTo(1))
-		assertThat(model.sections.get(0).lines.size(), equalTo(2))
+		
+		val doc = model.document
+		assertThat(doc, notNullValue())
+		assertThat(doc.sections.size(), equalTo(1))
+		assertThat(doc.sections.get(0).lines.size(), equalTo(2))
 	}
 }

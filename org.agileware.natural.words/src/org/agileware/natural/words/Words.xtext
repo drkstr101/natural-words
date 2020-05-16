@@ -34,7 +34,7 @@ Document:
 
 Paragraph:
     lines+=Text+
-    ( -> NL)
+    ( -> NL?)
 ;
 
 Text: 
