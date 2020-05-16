@@ -22,69 +22,50 @@ class WordsParsingTest {
 	@Inject
 	ParseHelper<WordsModel> parseHelper
 
-	@Inject
-	extension WordsTracer
-
 	@Test
 	def void singleLineParagraph() {
-		println("*** singleLineParagraph ***")
-
 		val model = parseHelper.parse('''
 			The quick brown fox
 			
 		''')
 
-		model.trace()
 		assertThat(model.eResource.errors, equalTo(#[]))
 		
 		val doc = model.document
 		assertThat(doc, notNullValue())
-		
-		val sections = doc.sections
-		assertThat(sections.size(), equalTo(1))
-		//assertThat(model.sections.get(0).lines.size(), equalTo(1))
+		assertThat(doc.sections.size(), equalTo(1))
 	}
 
 	@Test
 	def void multiLineParagraph() {
-		println("*** singleLineParagraph ***")
-
 		val model = parseHelper.parse('''
 			The quick brown fox
 			Jumps over the lazy moon
 			
 		''')
 
-		model.trace()
 		assertThat(model.eResource.errors, equalTo(#[]))
 		
 		val doc = model.document
 		assertThat(doc, notNullValue())
-		
-		val sections = doc.sections
-		assertThat(sections.size(), equalTo(1))
-//		assertThat(model.sections.get(0).lines.size(), equalTo(2))
+		assertThat(doc.sections.size(), equalTo(1))
 	}
 
 	@Test
 	def void multipleParagraphs() {
-		println("*** multipleParagraphs ***")
-
 		val model = parseHelper.parse('''
 			The quick brown fox
 			Jumps over the lazy moon
 			
 			But only on days that end in Y
-			
 		''')
 
-		model.trace()
 		assertThat(model.eResource.errors, equalTo(#[]))
 		
 		val doc = model.document
 		assertThat(doc, notNullValue())
 		
-		val sections = doc.sections
-		assertThat(sections.size(), equalTo(2))
+		// TODO: Test failure!
+		assertThat(doc.sections.size(), equalTo(2))
 	}
 }

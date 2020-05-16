@@ -45,7 +45,7 @@ Section: Paragraph;
 Paragraph: {Paragraph}
 	first=StartLiteral
 	rest+=Text*
-	( -> NL NL?)
+	( -> NL?)
 ;
 
 // Text Literals
