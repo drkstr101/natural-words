@@ -29,12 +29,12 @@ WordsModel:
  * Contains Section+
  */
 Document:
-	sections+=Paragraph+
+	sections+=Paragraph
+	(NL sections+=Paragraph)*
 ;
 
 Paragraph:
     lines+=Text+
-    ( -> NL?)
 ;
 
 Text: 

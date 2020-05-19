@@ -22,13 +22,12 @@ class WordsParsingTest {
 	ParseHelper<WordsModel> parseHelper
 
 	@Test
-	def void happyPath() {
+	def void singleParagraph() {
 		val model = parseHelper.parse('''
 			The quick brown fox
 			Jumps over the lazy dog
-			
 		''')
-
+	
 		assertThat(model, notNullValue())
 		assertThat(model.eResource.errors, equalTo(#[]))
 		
@@ -38,21 +37,22 @@ class WordsParsingTest {
 		assertThat(doc.sections.get(0).lines.size(), equalTo(2))
 		// It works!
 	}
-
+	
 	@Test
-	def void noTrailingNewlines() {
+	def void multiParagraph() {
 		val model = parseHelper.parse('''
 			The quick brown fox
 			Jumps over the lazy dog
+			
+			But only on days that end in Y
 		''')
-
+	
 		assertThat(model, notNullValue())
 		assertThat(model.eResource.errors, equalTo(#[]))
-		// Fail ^^^ XtextSyntaxDiagnostic: null:2 mismatched input '<EOF>' expecting RULE_NL
 		
 		val doc = model.document
 		assertThat(doc, notNullValue())
-		assertThat(doc.sections.size(), equalTo(1))
+		assertThat(doc.sections.size(), equalTo(2))
 		assertThat(doc.sections.get(0).lines.size(), equalTo(2))
 	}
 }
