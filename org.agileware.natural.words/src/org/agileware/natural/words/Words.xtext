@@ -29,7 +29,8 @@ WordsModel:
  * Contains Section+
  */
 Document:
-	sections+=Section+
+	sections+=Section
+	(NL sections+=Section)*
 ;
 
 /**
@@ -44,8 +45,7 @@ Section: Paragraph;
  */
 Paragraph: {Paragraph}
 	first=StartLiteral
-	rest+=Text*
-	( -> NL?)
+	rest+=Text
 ;
 
 // Text Literals
@@ -93,7 +93,7 @@ terminal SIMPLE_WORD:
 	(DIGIT | LETTER | '-' | '_' | '.')*
 ;
 
-terminal NL: ('\r'? '\n') WS*;
+terminal NL: ('\r'? '\n');
 terminal WS: (SPACE | '\t');
 
 
