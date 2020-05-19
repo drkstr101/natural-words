@@ -29,69 +29,54 @@ WordsModel:
  * Contains Section+
  */
 Document:
-	sections+=Section
-	(NL sections+=Section)*
+    sections+=Paragraph
+    (NL sections+=Paragraph)*
 ;
-
-/**
- *  A block of semantic text content, such as a Paragraph, Table*, or NamedSection*, etc.
- */
-Section: Paragraph;
 
 /**
  * A Paragraph is any block of text that begins with StartLiteral, and a single TextLiteral,
  * which may contain empty text, and is terminated by two NL chars at the end of the
  * text block.
  */
-Paragraph: {Paragraph}
-	first=StartLiteral
-	rest+=Text
+Paragraph:
+    lines+=Text+
 ;
 
-// Text Literals
-////
-
-/**
- * Any valid word or group of words that specifies the start of a paragraph
- */
-StartLiteral: {StartLiteral}
-	SIMPLE_WORD
-;
-
-/**
- * Contains a single line of text as an EString, up to and including the NL
- */
 Text: {Text}
-	value=TextValue
+	elements+=Word+
 	NL
 ;
 
-
-/**
- * An EString containing 0 or more word literals
- * @returns A string without any whitespace at the start or end of the string
- */
-TextValue returns ecore::EString:
-	SIMPLE_WORD*
+Word: {Word}
+	value=WordLiteral
 ;
 
 
-// Common Terminals
+// Word Literals
 ////
 
-//terminal NUM returns ecore::EDouble:
-//	'-'? (DIGIT)+ ('.' (DIGIT)+)?
-//;
+WordLiteral: SIMPLE_WORD
+	| NUM
+	| STR
+;
+
+terminal NUM returns ecore::EDouble:
+	'-'? (DIGIT)+ ('.' (DIGIT)+)?
+;
 	
-//terminal STR returns ecore::EString:
-//		'"' ( '\\' . | !('\\'|'"') )* '"' |
-//		"'" ( '\\' . | !('\\'|"'") )* "'"
-//;
+terminal STR returns ecore::EString:
+		'"' ( '\\' . | !('\\'|'"') )* '"' |
+		"'" ( '\\' . | !('\\'|"'") )* "'"
+;
 
 terminal SIMPLE_WORD: 
 	(DIGIT | LETTER) 
 	(DIGIT | LETTER | '-' | '_' | '.')*
 ;
+
+
+// Common Terminals
+////
 
 terminal NL: ('\r'? '\n');
 terminal WS: (SPACE | '\t');

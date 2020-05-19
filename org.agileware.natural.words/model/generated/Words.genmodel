@@ -12,14 +12,14 @@
     <genClasses ecoreClass="Words.ecore#//Document">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Document/sections"/>
     </genClasses>
-    <genClasses ecoreClass="Words.ecore#//Section"/>
     <genClasses ecoreClass="Words.ecore#//Paragraph">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/first"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/rest"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Paragraph/lines"/>
     </genClasses>
-    <genClasses ecoreClass="Words.ecore#//StartLiteral"/>
     <genClasses ecoreClass="Words.ecore#//Text">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//Text/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Words.ecore#//Text/words"/>
+    </genClasses>
+    <genClasses ecoreClass="Words.ecore#//Word">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Words.ecore#//Word/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

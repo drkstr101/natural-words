@@ -1,12 +1,13 @@
 package org.agileware.natural.words.tracer
 
+import java.util.stream.Collectors
 import org.agileware.natural.words.words.Document
 import org.agileware.natural.words.words.Paragraph
-import org.agileware.natural.words.words.StartLiteral
-import org.agileware.natural.words.words.Text
+import org.agileware.natural.words.words.Word
 import org.agileware.natural.words.words.WordsModel
 
 class WordsTracer {
+	
 	def dispatch void trace(WordsModel model) {
 		println(model)
 		if (model === null) {
@@ -33,18 +34,12 @@ class WordsTracer {
 
 	def dispatch void trace(Paragraph model) {
 		println(model)
-
-		model.first.trace()
-		for (t : model.rest) {
-			t.trace()
+		println('----------------')
+		for (line : model.lines) {
+			println(line.words.stream()
+					.map([Word w | w.value])
+					.collect(Collectors.joining(" ")))
 		}
-	}
-
-	def dispatch void trace(StartLiteral model) {
-		println(model)
-	}
-
-	def dispatch void trace(Text model) {
-		println(model)
+		println('----------------')
 	}
 }
